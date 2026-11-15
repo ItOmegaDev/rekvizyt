@@ -15,9 +15,16 @@ data is stored on your own server (SQLite).
 - Multiple "My details" profiles (different banks), selectable per document.
 - Counterparties and contracts: selecting a contract auto-fills the
   counterparty's requisites and the service type into the certificate.
+- Counterparties of any form — sole proprietors, companies, or non-residents
+  without a Ukrainian registration code. Signer title and basis are free text,
+  and bank details (IBAN, bank name, MFO) are optional: missing lines are
+  simply omitted from the printed documents.
 - Manual price and quantity input, automatic totals, amount in words.
 - One date and one number (`NN-MM`) shared by both the invoice and the
   certificate.
+- Payment tracking: mark a document as paid with a payment date straight from
+  the document list; paid rows are highlighted and the date can be corrected
+  to the actual bank settlement date.
 - Print and save as PDF through the browser dialog (A4, Times New Roman).
 - Historical documents keep a snapshot of requisites — later edits to
   directories do not alter already issued documents.
@@ -78,6 +85,13 @@ client/src/    — pages, components, A4 styles
 client/public/ — static assets (favicon)
 ```
 
+## Document numbering
+
+Documents are numbered `NN-MM`, where `NN` is a running counter inside the
+month `MM`. The invoice and the certificate of one pair always share the same
+number and date. The next number is suggested automatically and can be
+overridden before saving.
+
 ## Printing and PDF
 
 Open a document → "Print / PDF". In the print dialog choose "Save as PDF",
@@ -92,7 +106,7 @@ npm test
 
 Covers: money in words and formatting, dates, IBAN, certificate preambles, and
 a full API scenario (sign-in, directories, create/edit/duplicate/delete
-document, validation, CSRF).
+document, payment flag, validation, CSRF).
 
 ## Deployment
 
@@ -104,6 +118,25 @@ docker compose up -d --build
 ```
 
 Data is stored in the `rekvizyt_data` volume (`/data` in the container).
+Database schema changes are applied automatically on start-up, so existing
+data survives upgrades without manual migrations.
+
+## Troubleshooting
+
+**Port already allocated on start-up.** Another container on the host already
+binds the same port. Change the host port in `docker-compose.yml`
+(`127.0.0.1:4002:4000`) and point the reverse proxy at the container name.
+
+**Google sign-in rejected.** The account is not in `ALLOWED_EMAILS`, or the
+`GOOGLE_CLIENT_ID` does not match the domain you opened. The allowlist is
+checked on the server, so a valid Google login alone is not enough.
+
+**Signed out after every restart.** `SESSION_SECRET` is missing, so a random
+temporary secret is generated at boot. Set it in `.env`.
+
+**Empty values in printed documents.** Only filled fields are printed —
+empty IBAN, bank name, phone or e-mail lines are skipped instead of leaving
+gaps.
 
 ## Security
 
