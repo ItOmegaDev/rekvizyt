@@ -1,7 +1,7 @@
 # Rekvizyt
 
-A web service for a sole proprietor (FOP): generate a document pair —
-**Invoice for payment** and **Acceptance certificate of provided services** —
+A web service for a sole proprietor (FOP): generate a document pair -
+**Invoice for payment** and **Acceptance certificate of provided services** -
 in A4 format, in Ukrainian, with the total amount spelled out in words. All
 data is stored on your own server (SQLite).
 
@@ -16,7 +16,7 @@ data is stored on your own server (SQLite).
 - Multiple "My details" profiles (different banks), selectable per document.
 - Counterparties and contracts: selecting a contract auto-fills the
   counterparty's requisites and the service type into the certificate.
-- Counterparties of any form — sole proprietors, companies, or non-residents
+- Counterparties of any form - sole proprietors, companies, or non-residents
   without a Ukrainian registration code. Signer title and basis are free text,
   and bank details (IBAN, bank name, MFO) are optional: missing lines are
   simply omitted from the printed documents.
@@ -27,7 +27,7 @@ data is stored on your own server (SQLite).
   the document list; paid rows are highlighted and the date can be corrected
   to the actual bank settlement date.
 - Print and save as PDF through the browser dialog (A4, Times New Roman).
-- Historical documents keep a snapshot of requisites — later edits to
+- Historical documents keep a snapshot of requisites - later edits to
   directories do not alter already issued documents.
 - Sign-in via Google OAuth with an allowlist of emails; a local dev login
   is available behind the `DEV_LOGIN` flag.
@@ -50,7 +50,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173 — in dev mode (`DEV_LOGIN=1`) a local sign-in
+Open http://localhost:5173 - in dev mode (`DEV_LOGIN=1`) a local sign-in
 button appears on the login page.
 
 ## Environment variables
@@ -60,12 +60,12 @@ button appears on the login page.
 | `NODE_ENV` | `development` / `test` / `production` | `development` |
 | `PORT` | Server port | `4000` |
 | `DATA_DIR` | Directory holding the DB file | `.data` |
-| `GOOGLE_CLIENT_ID` | Client ID from Google Cloud Console | — |
-| `ALLOWED_EMAILS` | Comma-separated list of allowed emails | — |
+| `GOOGLE_CLIENT_ID` | Client ID from Google Cloud Console | - |
+| `ALLOWED_EMAILS` | Comma-separated list of allowed emails | - |
 | `SESSION_SECRET` | >=32 chars (required in production) | generated in dev |
-| `DEV_LOGIN` | `1` — local sign-in without Google (dev only) | `0` |
+| `DEV_LOGIN` | `1` - local sign-in without Google (dev only) | `0` |
 | `CLIENT_ORIGIN` | Frontend origin (CORS/CSRF) | `http://localhost:5173` |
-| `SERVE_CLIENT` | `1` — serve the built `client/dist` | `1` |
+| `SERVE_CLIENT` | `1` - serve the built `client/dist` | `1` |
 
 ## Scripts
 
@@ -80,10 +80,10 @@ button appears on the login page.
 ## Project layout
 
 ```
-shared/src/    — types, zod schemas, money-in-words, dates, document builders
-server/src/    — config, db (SQLite), repositories, routes, seed, app
-client/src/    — pages, components, A4 styles
-client/public/ — static assets (favicon)
+shared/src/    - types, zod schemas, money-in-words, dates, document builders
+server/src/    - config, db (SQLite), repositories, routes, seed, app
+client/src/    - pages, components, A4 styles
+client/public/ - static assets (favicon)
 ```
 
 ## Document numbering
@@ -122,14 +122,14 @@ checked on the server, so a valid Google login alone is not enough.
 **Signed out after every restart.** `SESSION_SECRET` is missing, so a random
 temporary secret is generated at boot. Set it in `.env`.
 
-**Empty values in printed documents.** Only filled fields are printed —
+**Empty values in printed documents.** Only filled fields are printed -
 empty IBAN, bank name, phone or e-mail lines are skipped instead of leaving
 gaps.
 
 ## Security
 
 - Do not expose the server port to the internet without TLS.
-- `ALLOWED_EMAILS` — only the accounts that actually need access.
+- `ALLOWED_EMAILS` - only the accounts that actually need access.
 - Keep dependencies up to date (`npm audit`).
 - Back up the DB: `docker cp rekvizyt:/data/rekvizyt.db ./backup.db`.
 

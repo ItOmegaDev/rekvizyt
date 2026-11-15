@@ -14,7 +14,7 @@ import { documentsRouter } from './routes/documents.js'
 import { healthRouter } from './routes/health.js'
 import { profilesRouter } from './routes/profiles.js'
 
-/** Зібраний фронтенд (client/dist) — шлях однаковий для src/ і dist/. */
+/** Зібраний фронтенд (client/dist) - шлях однаковий для src/ і dist/. */
 const clientDist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../client/dist')
 
 export function createApp() {

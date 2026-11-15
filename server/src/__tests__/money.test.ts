@@ -83,7 +83,7 @@ test('calcItemAmount: округлення до копійки', () => {
 })
 
 test('дати: українські формати', () => {
-  // Нерозривні пробіли — щоб дата не розривалася між числом і місяцем.
+  // Нерозривні пробіли - щоб дата не розривалася між числом і місяцем.
   assert.equal(formatDateDoc('2026-10-30'), '30\u00A0жовтня\u00A02026 р.')
   assert.equal(formatDateQuoted('2026-10-30'), '«30»\u00A0жовтня\u00A02026\u00A0року')
   assert.equal(formatDateShort('2026-01-05'), '05.01.2026')
@@ -104,7 +104,7 @@ test('IBAN: контрольна сума mod-97', () => {
   assert.equal(isValidIban('UA103052990000026005005909870'), true)
   assert.equal(isValidIban('UA213220010000026004330079326'), true)
   assert.equal(isValidIban('UA213052990000026002046208715'), true)
-  // Одна цифра змінена — сума не сходиться.
+  // Одна цифра змінена - сума не сходиться.
   assert.equal(isValidIban('UA103052990000026005005909871'), false)
   assert.equal(isValidIban('UA123'), false)
 })

@@ -305,7 +305,7 @@ export function ProfilesPage() {
       ) : items.length === 0 ? (
         <div className="card empty-state">
           <p className="empty-title">Ще немає жодних реквізитів</p>
-          <p className="muted">Додайте хоча б один банк — без нього не створити документ.</p>
+          <p className="muted">Додайте хоча б один банк - без нього не створити документ.</p>
         </div>
       ) : (
         <div className="card-grid">

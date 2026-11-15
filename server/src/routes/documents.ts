@@ -36,7 +36,7 @@ import {
 export const documentsRouter: Router = Router()
 
 /**
- * Замовник визначається договором, а не клієнтом — це прибирає
+ * Замовник визначається договором, а не клієнтом - це прибирає
  * можливість підставити чужі реквізити в документ.
  */
 function resolveRefs(profileId: string, contractId: string, requireActive: boolean) {

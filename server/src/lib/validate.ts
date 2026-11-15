@@ -18,7 +18,7 @@ export function parseQuery<S extends z.ZodTypeAny>(schema: S, req: Request): z.i
   return result.data
 }
 
-/** Ідентифікатори — UUID v4, жодних SQL-рядків із параметрів напряму. */
+/** Ідентифікатори - UUID v4, жодних SQL-рядків із параметрів напряму. */
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export function parseId(value: string, label = 'id'): string {

@@ -14,7 +14,7 @@ export type CounterpartyType = (typeof COUNTERPARTY_TYPES)[number]
 
 export const VAT_NOTE_DEFAULT = 'Без ПДВ (ПДВ не передбачений).'
 
-/** Автор проєкту — показується в інтерфейсі, `/api/health` і документації. */
+/** Автор проєкту - показується в інтерфейсі, `/api/health` і документації. */
 export const AUTHOR = {
   name: 'itomegadev',
   url: 'https://github.com/ItOmegaDev',

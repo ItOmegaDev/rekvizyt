@@ -2,7 +2,7 @@
   "name": "rekvizyt",
   "private": true,
   "version": "0.1.0",
-  "description": "Реквізити, рахунки та акти — внутрішній сервіс ФОП",
+  "description": "Реквізити, рахунки та акти - внутрішній сервіс ФОП",
   "author": "itomegadev (https://github.com/ItOmegaDev)",
   "workspaces": [
     "shared",

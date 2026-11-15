@@ -6,7 +6,7 @@ import {
   type DocumentDetail,
 } from '@rekvizyt/shared'
 
-/** Акт прийому-передачі наданих послуг — макет А4. */
+/** Акт прийому-передачі наданих послуг - макет А4. */
 export function ActSheet({ doc }: { doc: DocumentDetail }) {
   const { profile, counterparty, contract } = doc
   const words = amountInWordsUAH(doc.totalMinor)

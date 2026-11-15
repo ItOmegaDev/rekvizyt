@@ -126,7 +126,7 @@ test('API: здоров’я, авторизація, документи', async
     assert.ok(contractId)
   })
 
-  await t.test('наступний номер у листопаді — 1-11', async () => {
+  await t.test('наступний номер у листопаді - 1-11', async () => {
     const { status, data } = await call<{ number: string }>(
       '/api/documents/next-number?date=2026-11-15',
     )
@@ -248,7 +248,7 @@ test('API: здоров’я, авторизація, документи', async
     assert.equal(data.ok, true)
   })
 
-  await t.test('некоректний ідентифікатор — 400', async () => {
+  await t.test('некоректний ідентифікатор - 400', async () => {
     const { status } = await call('/api/documents/not-a-uuid')
     assert.equal(status, 400)
   })
@@ -276,7 +276,7 @@ test('API: здоров’я, авторизація, документи', async
     assert.match(data.error, /IBAN/i)
   })
 
-  await t.test('ЄДРПОУ для ТОВ — рівно 8 цифр', async () => {
+  await t.test('ЄДРПОУ для ТОВ - рівно 8 цифр', async () => {
     const { status } = await call('/api/counterparties', {
       method: 'POST',
       body: JSON.stringify({

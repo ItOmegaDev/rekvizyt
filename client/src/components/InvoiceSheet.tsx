@@ -7,7 +7,7 @@ import {
   type DocumentDetail,
 } from '@rekvizyt/shared'
 
-/** Рахунок на оплату — макет А4, друкується без інтерфейсу. */
+/** Рахунок на оплату - макет А4, друкується без інтерфейсу. */
 export function InvoiceSheet({ doc }: { doc: DocumentDetail }) {
   const { profile, counterparty, contract } = doc
   const words = amountInWordsUAH(doc.totalMinor)

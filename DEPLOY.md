@@ -11,16 +11,16 @@
 Обов’язкові:
 
 - `NODE_ENV=production`
-- `SESSION_SECRET` — мінімум 32 випадкові символи (`openssl rand -base64 48`).
-- `GOOGLE_CLIENT_ID` — Client ID з Google Cloud Console.
-- `ALLOWED_EMAILS` — список дозволених email через кому.
-- `CLIENT_ORIGIN` — публічний URL фронтенду (наприклад `https://rekvizyt.example.com`).
+- `SESSION_SECRET` - мінімум 32 випадкові символи (`openssl rand -base64 48`).
+- `GOOGLE_CLIENT_ID` - Client ID з Google Cloud Console.
+- `ALLOWED_EMAILS` - список дозволених email через кому.
+- `CLIENT_ORIGIN` - публічний URL фронтенду (наприклад `https://rekvizyt.example.com`).
 - `DEV_LOGIN=0` (або не задавати).
 
 Рекомендовані:
 
 - `DATA_DIR=/data` (шлях до тому).
-- `SERVE_CLIENT=1` — сервер віддає зібраний фронтенд.
+- `SERVE_CLIENT=1` - сервер віддає зібраний фронтенд.
 - `PORT=4000`.
 
 Сервер завершиться з помилкою при старті, якщо production-вимоги не виконано.
@@ -71,7 +71,7 @@ networks:
 
 Тоді проксі звертається до `rekvizyt:4000` по імені контейнера в мережі `web`.
 
-## Reverse proxy (Caddy — приклад)
+## Reverse proxy (Caddy - приклад)
 
 ```
 rekvizyt.example.com {
@@ -87,4 +87,4 @@ rekvizyt.example.com {
 - Не відкривайте порт 4000 назовні без TLS.
 - Регулярно оновлюйте залежності (`npm audit`).
 - Резервні копії БД щодня.
-- `ALLOWED_EMAILS` — мінімально необхідний набір акаунтів.
+- `ALLOWED_EMAILS` - мінімально необхідний набір акаунтів.

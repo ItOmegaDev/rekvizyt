@@ -36,7 +36,7 @@ const FOP_BASIS =
 
 /**
  * Вступна фраза замовника в акті.
- * Для ТОВ — «в особі директора …», для ФОП — стандартне посилання на ЄДР.
+ * Для ТОВ - «в особі директора …», для ФОП - стандартне посилання на ЄДР.
  */
 export function buildCustomerPreamble(c: {
   type: Counterparty['type']
@@ -49,7 +49,7 @@ export function buildCustomerPreamble(c: {
 }): string {
   if (c.type === 'fop') {
     const record = c.registrationRecord
-      ? `, запис в Єдиному державному реєстрі юридичних осіб та фізичних осіб – підприємців ${c.registrationRecord}`
+      ? `, запис в Єдиному державному реєстрі юридичних осіб та фізичних осіб - підприємців ${c.registrationRecord}`
       : ''
     return (
       `${c.fullName}, ${FOP_BASIS}${record}, ` +
@@ -71,7 +71,7 @@ export function buildExecutorPreamble(p: {
   registrationRecord: string
 }): string {
   const record = p.registrationRecord
-    ? `, запис в Єдиному державному реєстрі юридичних осіб та фізичних осіб – підприємців ${p.registrationRecord}`
+    ? `, запис в Єдиному державному реєстрі юридичних осіб та фізичних осіб - підприємців ${p.registrationRecord}`
     : ''
   return (
     `${p.fullName}, ${FOP_BASIS}${record}, іменований надалі «Виконавець», з іншої сторони, ` +

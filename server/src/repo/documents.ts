@@ -74,7 +74,7 @@ function mapSummary(row: SummaryRow): DocumentSummary {
     number: row.number,
     issuedAt: row.issued_at,
     totalMinor: row.total_minor,
-    counterpartyName: counterparty.name ?? '—',
+    counterpartyName: counterparty.name ?? '-',
     counterpartyFullName: counterparty.fullName ?? '',
     contractNumber: contract.number ?? '',
     serviceType: contract.serviceType ?? '',

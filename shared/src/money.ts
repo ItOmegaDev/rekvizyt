@@ -1,6 +1,6 @@
 /**
  * Гроші завжди зберігаються в копійках (цілі числа).
- * Форматування — українське: «6 900,00», розряди через нерозривний пробіл.
+ * Форматування - українське: «6 900,00», розряди через нерозривний пробіл.
  */
 
 const ONES_M = ['', 'один', 'два', 'три', 'чотири', 'п’ять', 'шість', 'сім', 'вісім', 'дев’ять']
@@ -93,7 +93,7 @@ export function intToWords(value: number): string {
   if (billions > 0) parts.push(group(billions, ['мільярд', 'мільярди', 'мільярдів'], 'm'))
   if (millions > 0) parts.push(group(millions, ['мільйон', 'мільйони', 'мільйонів'], 'm'))
   if (thousands > 0) parts.push(group(thousands, ['тисяча', 'тисячі', 'тисяч'], 'f'))
-  // Гривня — жіночого роду: «одна гривня», «двадцять одна гривня».
+  // Гривня - жіночого роду: «одна гривня», «двадцять одна гривня».
   if (rest > 0) parts.push(triad(rest, 'f'))
 
   return parts.filter(Boolean).join(' ')
@@ -141,7 +141,7 @@ function groupThousands(value: number): string {
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0')
 }
 
-/** «6 900,00» — завжди два знаки після коми. */
+/** «6 900,00» - завжди два знаки після коми. */
 export function formatMoney(minor: number): string {
   const safe = Number.isFinite(minor) ? Math.round(minor) : 0
   const sign = safe < 0 ? '−' : ''
@@ -151,7 +151,7 @@ export function formatMoney(minor: number): string {
   return `${sign}${groupThousands(hryvnia)},${String(kopecks).padStart(2, '0')}`
 }
 
-/** «6 900» або «699,50» — без зайвих нулів у копійках. */
+/** «6 900» або «699,50» - без зайвих нулів у копійках. */
 export function formatAmount(minor: number): string {
   if (minor % 100 === 0) {
     return formatMoney(minor).replace(',00', '')
@@ -159,7 +159,7 @@ export function formatAmount(minor: number): string {
   return formatMoney(minor)
 }
 
-/** Ввід користувача («1 234,5», «1234.50») → копійки. null — некоректно. */
+/** Ввід користувача («1 234,5», «1234.50») → копійки. null - некоректно. */
 export function parseAmountToMinor(raw: string): number | null {
   const cleaned = raw.replace(/\s+/g, '').replace(',', '.')
   if (!/^\d{1,11}(\.\d{1,2})?$/.test(cleaned)) return null

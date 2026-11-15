@@ -27,7 +27,7 @@ const envSchema = z.object({
         .filter(Boolean),
     ),
   SESSION_SECRET: z.preprocess((v) => (v === '' ? undefined : v), z.string().min(32).optional()),
-  // Локальний вхід без Google — ЛИШЕ для розробки, явно вмикається.
+  // Локальний вхід без Google - ЛИШЕ для розробки, явно вмикається.
   DEV_LOGIN: z.enum(['0', '1']).default('0'),
   CLIENT_ORIGIN: z
     .string()
@@ -61,15 +61,15 @@ if (!sessionSecret) {
     console.error('❌ SESSION_SECRET обов’язковий у production (мінімум 32 символи).')
     process.exit(1)
   }
-  // У dev сесії скидаються при перезапуску — це прийнятно й безпечно.
+  // У dev сесії скидаються при перезапуску - це прийнятно й безпечно.
   sessionSecret = randomBytes(32).toString('base64url')
-  console.warn('⚠️  SESSION_SECRET не задано — згенеровано тимчасовий (сесії скинуться при перезапуску).')
+  console.warn('⚠️  SESSION_SECRET не задано - згенеровано тимчасовий (сесії скинуться при перезапуску).')
 }
 
 if (isProduction) {
   const problems: string[] = []
-  if (!env.GOOGLE_CLIENT_ID) problems.push('GOOGLE_CLIENT_ID не задано — вхід неможливий')
-  if (env.ALLOWED_EMAILS.length === 0) problems.push('ALLOWED_EMAILS порожній — нікому не можна входити')
+  if (!env.GOOGLE_CLIENT_ID) problems.push('GOOGLE_CLIENT_ID не задано - вхід неможливий')
+  if (env.ALLOWED_EMAILS.length === 0) problems.push('ALLOWED_EMAILS порожній - нікому не можна входити')
   if (env.DEV_LOGIN === '1') problems.push('DEV_LOGIN=1 заборонено у production')
   if (problems.length > 0) {
     console.error('❌ Некоректні production-налаштування:')
@@ -79,7 +79,7 @@ if (isProduction) {
 }
 
 if (!isProduction && env.GOOGLE_CLIENT_ID && env.ALLOWED_EMAILS.length === 0) {
-  console.warn('⚠️  ALLOWED_EMAILS порожній — Google-вхід відхилить будь-кого.')
+  console.warn('⚠️  ALLOWED_EMAILS порожній - Google-вхід відхилить будь-кого.')
 }
 
 const allowedOrigins = Array.from(new Set(env.CLIENT_ORIGIN))

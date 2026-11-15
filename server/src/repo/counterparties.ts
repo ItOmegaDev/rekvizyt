@@ -231,7 +231,7 @@ export function updateCounterparty(id: string, input: CounterpartyInput): Counte
   return getCounterparty(id)
 }
 
-/** Замовника з документами не видаляємо — вимикаємо разом із договорами. */
+/** Замовника з документами не видаляємо - вимикаємо разом із договорами. */
 export function deleteCounterparty(id: string): 'deleted' | 'deactivated' | 'not_found' {
   const db = getDb()
   if (!getCounterparty(id)) return 'not_found'

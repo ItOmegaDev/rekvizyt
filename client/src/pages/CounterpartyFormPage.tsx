@@ -310,7 +310,7 @@ export function CounterpartyFormPage() {
       const result = await api.del<OkResponse>(`/api/contracts/${contract.id}`)
       await load(id)
       if (result.deactivated) {
-        setContractError('Договір використовується в документах — його вимкнено, а не видалено.')
+        setContractError('Договір використовується в документах - його вимкнено, а не видалено.')
       }
     } catch (err) {
       setContractError(errorMessage(err))
@@ -323,7 +323,7 @@ export function CounterpartyFormPage() {
         <div>
           <h1 className="page-title">{id ? 'Редагувати замовника' : 'Новий замовник'}</h1>
           <p className="page-subtitle">
-            Вступна фраза для акта формується автоматично з цих даних — її можна переписати вручну.
+            Вступна фраза для акта формується автоматично з цих даних - її можна переписати вручну.
           </p>
         </div>
         <Link className="btn btn-ghost" to="/admin/counterparties">
@@ -392,7 +392,7 @@ export function CounterpartyFormPage() {
             </Field>
             <Field
               label="Податковий номер"
-              hint={form.type === 'tov' ? 'ЄДРПОУ — 8 цифр' : 'РНОКПП — 10 цифр'}
+              hint={form.type === 'tov' ? 'ЄДРПОУ - 8 цифр' : 'РНОКПП - 10 цифр'}
             >
               <input
                 className="input mono"
@@ -535,7 +535,7 @@ export function CounterpartyFormPage() {
               placeholder={autoPreamble}
             />
             <span className="field-hint">
-              Порожнє поле — використовується автоматичний текст. Поточний автоматичний варіант:
+              Порожнє поле - використовується автоматичний текст. Поточний автоматичний варіант:
               <span className="preamble-preview">{autoPreamble}</span>
               {form.preamble.trim() === '' && (
                 <button
@@ -573,7 +573,7 @@ export function CounterpartyFormPage() {
 
       {!loading && !id && (
         <div className="alert alert-info">
-          Договори можна додати після створення замовника — вони прив’язані до нього.
+          Договори можна додати після створення замовника - вони прив’язані до нього.
         </div>
       )}
 
@@ -716,7 +716,7 @@ export function CounterpartyFormPage() {
                       <td className="muted">{contract.serviceLabel}</td>
                       <td className="text-right nowrap">
                         {contract.defaultPriceMinor === null
-                          ? '—'
+                          ? '-'
                           : `${(contract.defaultPriceMinor / 100).toLocaleString('uk-UA', {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,

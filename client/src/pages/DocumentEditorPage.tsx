@@ -256,7 +256,7 @@ export function DocumentEditorPage() {
               onChange={(event) => setProfileId(event.target.value)}
               required
             >
-              <option value="">— виберіть —</option>
+              <option value="">- виберіть -</option>
               {profiles.map((profile) => (
                 <option key={profile.id} value={profile.id} disabled={!profile.isActive && isEdit === false}>
                   {profile.label}
@@ -273,7 +273,7 @@ export function DocumentEditorPage() {
               onChange={(event) => applyContract(event.target.value)}
               required
             >
-              <option value="">— виберіть —</option>
+              <option value="">- виберіть -</option>
               {counterparties.map((counterparty) => {
                 const visible = counterparty.contracts.filter(
                   (contract) => contract.isActive || contract.id === contractId,
@@ -283,7 +283,7 @@ export function DocumentEditorPage() {
                   <optgroup key={counterparty.id} label={counterparty.name}>
                     {visible.map((contract) => (
                       <option key={contract.id} value={contract.id}>
-                        № {contract.number} від {contract.date} — {contract.serviceLabel}
+                        № {contract.number} від {contract.date} - {contract.serviceLabel}
                       </option>
                     ))}
                   </optgroup>

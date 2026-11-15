@@ -63,7 +63,7 @@ export function isValidISODate(value: string): boolean {
   return parseISODate(value) !== null
 }
 
-/** «30 жовтня 2026» — без розривів між числом, місяцем і роком. */
+/** «30 жовтня 2026» - без розривів між числом, місяцем і роком. */
 export function formatDateLong(iso: string): string {
   const parts = parseISODate(iso)
   if (!parts) return iso
@@ -89,14 +89,14 @@ export function formatDateShort(iso: string): string {
   return `${pad(parts.day)}.${pad(parts.month)}.${parts.year}`
 }
 
-/** «2026-10» — ключ місяця для нумерації документів. */
+/** «2026-10» - ключ місяця для нумерації документів. */
 export function monthKey(iso: string): string {
   const parts = parseISODate(iso)
   if (!parts) return iso.slice(0, 7)
   return `${parts.year}-${pad(parts.month)}`
 }
 
-/** «10» — номер місяця для номера документа «NN-MM». */
+/** «10» - номер місяця для номера документа «NN-MM». */
 export function monthNumber(iso: string): string {
   const parts = parseISODate(iso)
   if (!parts) return iso.slice(5, 7)

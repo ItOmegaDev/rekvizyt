@@ -39,12 +39,12 @@ const ibanSchema = z
 const taxIdSchema = z
   .string()
   .trim()
-  .regex(/^\d{8}$|^\d{10}$/, 'ЄДРПОУ — 8 цифр, РНОКПП/ІПН — 10 цифр')
+  .regex(/^\d{8}$|^\d{10}$/, 'ЄДРПОУ - 8 цифр, РНОКПП/ІПН - 10 цифр')
 
 const mfoSchema = z
   .string()
   .trim()
-  .regex(/^\d{6}$/, 'МФО — 6 цифр')
+  .regex(/^\d{6}$/, 'МФО - 6 цифр')
   .or(z.literal(''))
   .default('')
 
@@ -93,7 +93,7 @@ export const counterpartyInputSchema = z
     ipn: z
       .string()
       .trim()
-      .regex(/^\d{10}$|^\d{12}$|^$/, 'ІПН — 10 або 12 цифр')
+      .regex(/^\d{10}$|^\d{12}$|^$/, 'ІПН - 10 або 12 цифр')
       .default(''),
     iban: ibanSchema,
     bankName: trimmed(LIMITS.maxFieldLength),
@@ -118,8 +118,8 @@ export const counterpartyInputSchema = z
         path: ['taxId'],
         message:
           value.type === 'tov'
-            ? 'Для ТОВ потрібен ЄДРПОУ — 8 цифр'
-            : 'Для ФОП потрібен РНОКПП/ІПН — 10 цифр',
+            ? 'Для ТОВ потрібен ЄДРПОУ - 8 цифр'
+            : 'Для ФОП потрібен РНОКПП/ІПН - 10 цифр',
       })
     }
   })
@@ -162,7 +162,7 @@ export const documentInputSchema = z.object({
   profileId: idSchema,
   contractId: idSchema,
   issuedAt: isoDateSchema,
-  /** Порожньо — сервер підставить наступний номер «NN-MM». */
+  /** Порожньо - сервер підставить наступний номер «NN-MM». */
   number: z.string().trim().max(40).default(''),
   items: z.array(documentItemInputSchema).min(1, 'Додайте хоча б одну позицію').max(LIMITS.maxItems),
   vatNote: z.string().trim().max(300).default(VAT_NOTE_DEFAULT),
@@ -182,7 +182,7 @@ export const nextNumberQuerySchema = z.object({
 
 export const documentPaidSchema = z.object({
   paid: z.boolean(),
-  /** ISO-дата оплати; якщо не вказано — сьогодні. */
+  /** ISO-дата оплати; якщо не вказано - сьогодні. */
   paidAt: isoDateSchema.optional(),
 })
 export type DocumentPaidInput = z.infer<typeof documentPaidSchema>

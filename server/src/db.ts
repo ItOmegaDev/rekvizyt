@@ -2,7 +2,7 @@ import { mkdirSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import path from 'node:path'
 
-// node:sqlite — вбудований модуль Node 22+. Завантажуємо через require, щоб
+// node:sqlite - вбудований модуль Node 22+. Завантажуємо через require, щоб
 // збірка (tsup/esbuild) не перетворювала специфікатор «node:sqlite» на «sqlite».
 const requireNodeSqlite = createRequire(import.meta.url)
 const { DatabaseSync } = requireNodeSqlite('node:sqlite') as {
@@ -129,7 +129,7 @@ export function initDb(dataDir: string): DatabaseSyncInstance {
   try {
     database.exec('ALTER TABLE documents ADD COLUMN paid_at TEXT')
   } catch {
-    // колонка вже існує — ігноруємо
+    // колонка вже існує - ігноруємо
   }
   db = database
   return database

@@ -158,7 +158,7 @@ export function updateProfile(id: string, input: ProfileInput): Profile | null {
   return getProfile(id)
 }
 
-/** Використані в документах реквізити не видаляємо — деактивуємо. */
+/** Використані в документах реквізити не видаляємо - деактивуємо. */
 export function deleteProfile(id: string): 'deleted' | 'deactivated' | 'not_found' {
   const db = getDb()
   if (!getProfile(id)) return 'not_found'

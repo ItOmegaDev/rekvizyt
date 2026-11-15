@@ -166,7 +166,7 @@ export interface NextNumber {
 
 export interface OkResponse {
   ok: true
-  /** Запис використовується в документах — його вимкнено, а не видалено. */
+  /** Запис використовується в документах - його вимкнено, а не видалено. */
   deactivated?: boolean
 }
 

@@ -46,7 +46,7 @@ export function CounterpartiesPage() {
       await load()
       setNotice(
         result.deactivated
-          ? 'Замовник використовується в документах — його та договори вимкнено.'
+          ? 'Замовник використовується в документах - його та договори вимкнено.'
           : 'Замовника видалено.',
       )
     } catch (err) {
@@ -78,7 +78,7 @@ export function CounterpartiesPage() {
       ) : items.length === 0 ? (
         <div className="card empty-state">
           <p className="empty-title">Ще немає жодного замовника</p>
-          <p className="muted">Додайте замовника й договір — після цього можна створювати документи.</p>
+          <p className="muted">Додайте замовника й договір - після цього можна створювати документи.</p>
           <Link className="btn btn-primary" to="/admin/counterparties/new">
             Додати замовника
           </Link>
@@ -116,7 +116,7 @@ export function CounterpartiesPage() {
               </div>
 
               {item.contracts.length === 0 ? (
-                <p className="muted small">Договорів немає — додайте хоча б один.</p>
+                <p className="muted small">Договорів немає - додайте хоча б один.</p>
               ) : (
                 <ul className="contract-list">
                   {item.contracts.map((contract) => (

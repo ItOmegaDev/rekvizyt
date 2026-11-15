@@ -14,7 +14,7 @@ function main() {
   })
 
   const shutdown = (signal: string) => {
-    console.log(`\n${signal} — завершуюсь…`)
+    console.log(`\n${signal} - завершуюсь…`)
     server.close()
     closeDb()
     process.exit(0)

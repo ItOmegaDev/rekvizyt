@@ -136,7 +136,7 @@ export function DocumentsPage() {
             <p className="muted">
               {query
                 ? 'Спробуйте інший запит або очистіть пошук.'
-                : 'Створіть перший рахунок і акт — це займе близько хвилини.'}
+                : 'Створіть перший рахунок і акт - це займе близько хвилини.'}
             </p>
             {!query && (
               <Link className="btn btn-primary" to="/admin/documents/new">
