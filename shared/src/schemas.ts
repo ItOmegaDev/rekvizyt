@@ -180,6 +180,13 @@ export const nextNumberQuerySchema = z.object({
   date: isoDateSchema,
 })
 
+export const documentPaidSchema = z.object({
+  paid: z.boolean(),
+  /** ISO-дата оплати; якщо не вказано — сьогодні. */
+  paidAt: isoDateSchema.optional(),
+})
+export type DocumentPaidInput = z.infer<typeof documentPaidSchema>
+
 /* ──────────────────────────────── Вхід ──────────────────────────────── */
 
 export const googleLoginSchema = z.object({

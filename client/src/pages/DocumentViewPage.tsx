@@ -95,6 +95,9 @@ export function DocumentViewPage() {
           <p className="page-subtitle">
             Договір № {doc.contract.number} від {formatDateShort(doc.contract.date)} ·{' '}
             {formatDateShort(doc.issuedAt)}
+            {doc.paidAt && (
+              <span className="badge badge-paid">Сплачено {formatDateShort(doc.paidAt)}</span>
+            )}
           </p>
         </div>
         <div className="toolbar">

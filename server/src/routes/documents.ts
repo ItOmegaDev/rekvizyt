@@ -6,8 +6,10 @@ import {
   calcTotal,
   documentInputSchema,
   documentListQuerySchema,
+  documentPaidSchema,
   LIMITS,
   nextNumberQuerySchema,
+  todayISO,
   type DocumentDetail,
   type DocumentListResponse,
   type NextNumber,
@@ -26,6 +28,7 @@ import {
   getDocument,
   listDocuments,
   nextDocumentNumber,
+  setDocumentPaid,
   updateDocument,
   type DocumentWriteInput,
 } from '../repo/documents.js'
@@ -140,6 +143,19 @@ documentsRouter.put(
     if (!updated) throw HttpError.notFound('Документ не знайдено')
     res.json(updated)
   }),
+)
+
+documentsRouter.patch(
+  '/documents/:id/paid',
+  requireAuth,
+  (req: Request, res: Response<DocumentDetail>) => {
+    const id = parseId(String(req.params.id), 'documentId')
+    const input = parseBody(documentPaidSchema, req)
+    const paidAt = input.paid ? (input.paidAt ?? todayISO()) : null
+    const updated = setDocumentPaid(id, paidAt)
+    if (!updated) throw HttpError.notFound('Документ не знайдено')
+    res.json(updated)
+  },
 )
 
 documentsRouter.post(

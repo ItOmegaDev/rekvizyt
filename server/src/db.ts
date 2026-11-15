@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS documents (
   note                 TEXT NOT NULL DEFAULT '',
   customer_preamble    TEXT NOT NULL DEFAULT '',
   executor_preamble    TEXT NOT NULL DEFAULT '',
+  paid_at              TEXT,
   created_at           TEXT NOT NULL,
   updated_at           TEXT NOT NULL
 );
@@ -124,6 +125,12 @@ export function initDb(dataDir: string): DatabaseSyncInstance {
   mkdirSync(dataDir, { recursive: true })
   const database = new DatabaseSync(path.join(dataDir, 'rekvizyt.db'))
   database.exec(SCHEMA)
+  // Міграція: додати колонку paid_at, якщо її ще немає (старі БД).
+  try {
+    database.exec('ALTER TABLE documents ADD COLUMN paid_at TEXT')
+  } catch {
+    // колонка вже існує — ігноруємо
+  }
   db = database
   return database
 }

@@ -168,6 +168,37 @@ test('API: здоров’я, авторизація, документи', async
     assert.equal(summary.number, '1-11')
     assert.equal(summary.totalMinor, 690_000)
     assert.match(summary.counterpartyName, /КЕПІТАЛС/)
+    assert.equal(summary.paidAt, null)
+  })
+
+  await t.test('позначка «сплачено»: дата за замовчуванням і зняття', async () => {
+    const paid = await call<DocumentDetail>(`/api/documents/${documentId}/paid`, {
+      method: 'PATCH',
+      body: JSON.stringify({ paid: true, paidAt: '2026-11-20' }),
+    })
+    assert.equal(paid.status, 200)
+    assert.equal(paid.data.paidAt, '2026-11-20')
+
+    const list = await call<DocumentListResponse>('/api/documents')
+    assert.equal((list.data.items[0] as DocumentSummary).paidAt, '2026-11-20')
+
+    const auto = await call<DocumentDetail>(`/api/documents/${documentId}/paid`, {
+      method: 'PATCH',
+      body: JSON.stringify({ paid: true }),
+    })
+    assert.match(auto.data.paidAt ?? '', /^\d{4}-\d{2}-\d{2}$/)
+
+    const unpaid = await call<DocumentDetail>(`/api/documents/${documentId}/paid`, {
+      method: 'PATCH',
+      body: JSON.stringify({ paid: false }),
+    })
+    assert.equal(unpaid.data.paidAt, null)
+
+    const bad = await call(`/api/documents/${documentId}/paid`, {
+      method: 'PATCH',
+      body: JSON.stringify({ paid: true, paidAt: '2026-02-30' }),
+    })
+    assert.equal(bad.status, 400)
   })
 
   await t.test('номер наступного документа зростає', async () => {

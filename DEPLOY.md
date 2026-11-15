@@ -50,6 +50,27 @@ docker compose up -d --build
 
 Дані зберігаються у volume `rekvizyt_data` (`/data` у контейнері).
 
+Якщо поруч на хості вже працюють інші контейнери, задайте окремий host-порт і
+під’єднайте сервіс до спільної мережі проксі (інакше можливий конфлікт
+`Bind for 127.0.0.1:4000 failed`):
+
+```yaml
+services:
+  app:
+    container_name: rekvizyt
+    ports:
+      - '127.0.0.1:4002:4000'
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
+    name: web
+```
+
+Тоді проксі звертається до `rekvizyt:4000` по імені контейнера в мережі `web`.
+
 ## Reverse proxy (Caddy — приклад)
 
 ```

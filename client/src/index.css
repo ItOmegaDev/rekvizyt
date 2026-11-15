@@ -820,6 +820,12 @@ select.input {
   color: var(--accent-strong);
 }
 
+.badge-paid {
+  margin-left: 8px;
+  background: var(--accent-weak);
+  color: var(--accent-strong);
+}
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -1185,6 +1191,13 @@ select.input {
 .act-date {
   text-align: right;
   margin: 10pt 0 14pt;
+  /* Дата не повинна розриватися між числом і місяцем */
+  white-space: nowrap;
+}
+
+/* ««30» жовтня 2026 року» — тримаємо число/місяць/рік разом */
+.act-date > .nowrap-date {
+  white-space: nowrap;
 }
 
 .act-paragraph {
@@ -1240,13 +1253,13 @@ select.input {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8mm;
-  margin-top: auto;
-  padding-top: 22pt;
+  margin-top: 0;
+  padding-top: 12pt;
   font-size: 10pt;
 }
 
 .act-sign-position {
-  margin-bottom: 16pt;
+  margin-bottom: 32pt;
 }
 
 .act-sign-row {
@@ -1533,4 +1546,75 @@ html {
   .search-row {
     flex-direction: column;
   }
+}
+
+/* ───────────────────────  Ознака оплати в списку  ──────────────────── */
+
+.row-paid {
+  background: color-mix(in srgb, var(--accent-weak) 45%, transparent);
+}
+
+.paid-cell {
+  white-space: nowrap;
+}
+
+.paid-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.paid-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.paid-check input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.paid-label {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.paid-label.is-paid {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.paid-date {
+  font: inherit;
+  font-size: 0.78rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+}
+
+.paid-date:hover {
+  color: var(--accent-strong);
+}
+
+.paid-editor {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-sm {
+  padding: 4px 6px;
+  font-size: 0.85rem;
+  width: auto;
 }

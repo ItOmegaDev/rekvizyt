@@ -38,6 +38,7 @@ interface DocumentRow {
   note: string
   customer_preamble: string
   executor_preamble: string
+  paid_at: string | null
   created_at: string
   updated_at: string
 }
@@ -49,6 +50,7 @@ interface SummaryRow {
   total_minor: number
   counterparty_snapshot: string
   contract_snapshot: string
+  paid_at: string | null
   created_at: string
 }
 
@@ -77,6 +79,7 @@ function mapSummary(row: SummaryRow): DocumentSummary {
     contractNumber: contract.number ?? '',
     serviceType: contract.serviceType ?? '',
     createdAt: row.created_at,
+    paidAt: row.paid_at ?? null,
   }
 }
 
@@ -102,13 +105,14 @@ function mapDetail(row: DocumentRow): DocumentDetail {
     contract: parseJson<ContractSnapshot>(row.contract_snapshot, {} as ContractSnapshot),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
+    paidAt: row.paid_at ?? null,
   }
 }
 
 export function listDocuments(query = '', limit = 100): DocumentSummary[] {
   const rows = getDb()
     .prepare(
-      `SELECT id, number, issued_at, total_minor, counterparty_snapshot, contract_snapshot, created_at
+      `SELECT id, number, issued_at, total_minor, counterparty_snapshot, contract_snapshot, paid_at, created_at
        FROM documents ORDER BY issued_at DESC, created_at DESC LIMIT 500`,
     )
     .all() as unknown as SummaryRow[]
@@ -168,8 +172,8 @@ function insert(
     .prepare(
       `INSERT INTO documents (id, number, issued_at, month_key, seq, profile_id, counterparty_id,
          contract_id, profile_snapshot, counterparty_snapshot, contract_snapshot, items,
-         total_minor, vat_note, note, customer_preamble, executor_preamble, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+         total_minor, vat_note, note, customer_preamble, executor_preamble, paid_at, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .run(
       id,
@@ -189,6 +193,7 @@ function insert(
       input.note,
       input.customerPreamble,
       input.executorPreamble,
+      null,
       createdAt,
       createdAt,
     )
@@ -239,6 +244,15 @@ export function updateDocument(id: string, input: DocumentWriteInput): DocumentD
 export function deleteDocument(id: string): boolean {
   const result = getDb().prepare('DELETE FROM documents WHERE id = ?').run(id)
   return Number(result.changes) > 0
+}
+
+/** Позначити документ сплаченим (paidAt = ISO-дата) або зняти позначку (null). */
+export function setDocumentPaid(id: string, paidAt: string | null): DocumentDetail | null {
+  const result = getDb()
+    .prepare('UPDATE documents SET paid_at = ?, updated_at = ? WHERE id = ?')
+    .run(paidAt, now(), id)
+  if (Number(result.changes) === 0) return null
+  return getDocument(id)
 }
 
 /** Повторення документа: ті самі дані, сьогоднішня дата й новий номер. */

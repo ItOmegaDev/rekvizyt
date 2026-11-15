@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { formatDateShort, formatMoney, type DocumentDetail, type DocumentSummary } from '@rekvizyt/shared'
+import {
+  formatDateShort,
+  formatMoney,
+  todayISO,
+  type DocumentDetail,
+  type DocumentSummary,
+} from '@rekvizyt/shared'
 import { api, errorMessage } from '../api'
 
 export function DocumentsPage() {
@@ -10,6 +16,7 @@ export function DocumentsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [busyId, setBusyId] = useState<string | null>(null)
+  const [paidEditId, setPaidEditId] = useState<string | null>(null)
 
   const load = useCallback(async (search: string) => {
     setLoading(true)
@@ -36,6 +43,25 @@ export function DocumentsPage() {
     try {
       const copy = await api.post<DocumentDetail>(`/api/documents/${doc.id}/duplicate`)
       navigate(`/admin/documents/${copy.id}/edit`)
+    } catch (err) {
+      setError(errorMessage(err))
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const setPaid = async (doc: DocumentSummary, paid: boolean, paidAt?: string) => {
+    setBusyId(doc.id)
+    setError(null)
+    try {
+      const body = paid ? { paid: true, paidAt: paidAt || todayISO() } : { paid: false }
+      const updated = await api.patch<DocumentDetail>(`/api/documents/${doc.id}/paid`, body)
+      setItems((prev) =>
+        prev.map((item) =>
+          item.id === doc.id ? { ...item, paidAt: updated.paidAt } : item,
+        ),
+      )
+      setPaidEditId(null)
     } catch (err) {
       setError(errorMessage(err))
     } finally {
@@ -128,12 +154,13 @@ export function DocumentsPage() {
                   <th>Замовник</th>
                   <th className="col-service">Послуга</th>
                   <th className="text-right">Сума</th>
+                  <th>Оплата</th>
                   <th aria-label="Дії" />
                 </tr>
               </thead>
               <tbody>
                 {items.map((doc) => (
-                  <tr key={doc.id}>
+                  <tr key={doc.id} className={doc.paidAt ? 'row-paid' : undefined}>
                     <td className="nowrap">{formatDateShort(doc.issuedAt)}</td>
                     <td>
                       <span className="doc-number">{doc.number}</span>
@@ -147,6 +174,61 @@ export function DocumentsPage() {
                     <td className="col-service muted">{doc.serviceType}</td>
                     <td className="text-right nowrap">
                       <strong>{formatMoney(doc.totalMinor)}</strong>
+                    </td>
+                    <td className="nowrap paid-cell">
+                      {paidEditId === doc.id ? (
+                        <div className="paid-editor">
+                          <input
+                            className="input input-sm"
+                            type="date"
+                            defaultValue={doc.paidAt ?? todayISO()}
+                            disabled={busyId === doc.id}
+                            aria-label="Дата оплати"
+                            onChange={(event) => {
+                              if (event.target.value) {
+                                void setPaid(doc, true, event.target.value)
+                              }
+                            }}
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-sm"
+                            onClick={() => setPaidEditId(null)}
+                          >
+                            Скасувати
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="paid-toggle">
+                          <label className="paid-check">
+                            <input
+                              type="checkbox"
+                              checked={doc.paidAt !== null}
+                              disabled={busyId === doc.id}
+                              onChange={(event) => {
+                                if (event.target.checked) {
+                                  void setPaid(doc, true)
+                                } else {
+                                  void setPaid(doc, false)
+                                }
+                              }}
+                            />
+                            <span className={doc.paidAt ? 'paid-label is-paid' : 'paid-label'}>
+                              {doc.paidAt ? 'Сплачено' : 'Не сплачено'}
+                            </span>
+                          </label>
+                          {doc.paidAt && (
+                            <button
+                              type="button"
+                              className="paid-date"
+                              onClick={() => setPaidEditId(doc.id)}
+                              title="Змінити дату оплати"
+                            >
+                              {formatDateShort(doc.paidAt)}
+                            </button>
+                          )}
+                        </div>
+                      )}
                     </td>
                     <td>
                       <div className="table-actions">

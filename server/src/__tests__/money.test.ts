@@ -83,8 +83,9 @@ test('calcItemAmount: округлення до копійки', () => {
 })
 
 test('дати: українські формати', () => {
-  assert.equal(formatDateDoc('2026-10-30'), '30 жовтня 2026 р.')
-  assert.equal(formatDateQuoted('2026-10-30'), '«30» жовтня 2026 року')
+  // Нерозривні пробіли — щоб дата не розривалася між числом і місяцем.
+  assert.equal(formatDateDoc('2026-10-30'), '30\u00A0жовтня\u00A02026 р.')
+  assert.equal(formatDateQuoted('2026-10-30'), '«30»\u00A0жовтня\u00A02026\u00A0року')
   assert.equal(formatDateShort('2026-01-05'), '05.01.2026')
   assert.equal(monthKey('2026-10-30'), '2026-10')
   assert.equal(monthNumber('2026-10-30'), '10')

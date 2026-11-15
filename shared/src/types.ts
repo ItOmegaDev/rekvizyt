@@ -133,6 +133,8 @@ export interface DocumentSummary {
   contractNumber: string
   serviceType: string
   createdAt: string
+  /** ISO-дата оплати або null, якщо не сплачено. */
+  paidAt: string | null
 }
 
 export interface DocumentDetail {
@@ -153,6 +155,8 @@ export interface DocumentDetail {
   contract: ContractSnapshot
   createdAt: string
   updatedAt: string
+  /** ISO-дата оплати або null, якщо не сплачено. */
+  paidAt: string | null
 }
 
 export interface NextNumber {

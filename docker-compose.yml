@@ -1,9 +1,10 @@
 services:
   app:
     build: .
+    container_name: rekvizyt
     restart: unless-stopped
     ports:
-      - '127.0.0.1:4000:4000'
+      - '127.0.0.1:4002:4000'
     env_file:
       - .env
     environment:
@@ -11,6 +12,13 @@ services:
       - SERVE_CLIENT=1
     volumes:
       - rekvizyt_data:/data
+    networks:
+      - web
 
 volumes:
   rekvizyt_data:
+
+networks:
+  web:
+    external: true
+    name: web

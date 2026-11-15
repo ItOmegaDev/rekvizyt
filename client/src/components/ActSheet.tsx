@@ -19,7 +19,9 @@ export function ActSheet({ doc }: { doc: DocumentDetail }) {
         <div className="act-subtitle">прийому-передачі наданих послуг</div>
       </header>
 
-      <div className="act-date">{formatDateQuoted(doc.issuedAt)}</div>
+      <div className="act-date">
+        <span className="nowrap-date">{formatDateQuoted(doc.issuedAt)}</span>
+      </div>
 
       <p className="act-paragraph">{doc.customerPreamble}</p>
       <p className="act-paragraph">{doc.executorPreamble}</p>

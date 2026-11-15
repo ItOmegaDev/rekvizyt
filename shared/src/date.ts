@@ -63,11 +63,11 @@ export function isValidISODate(value: string): boolean {
   return parseISODate(value) !== null
 }
 
-/** «30 жовтня 2026» */
+/** «30 жовтня 2026» — без розривів між числом, місяцем і роком. */
 export function formatDateLong(iso: string): string {
   const parts = parseISODate(iso)
   if (!parts) return iso
-  return `${parts.day} ${MONTHS_GENITIVE[parts.month - 1]} ${parts.year}`
+  return `${parts.day}\u00A0${MONTHS_GENITIVE[parts.month - 1]}\u00A0${parts.year}`
 }
 
 /** «30 жовтня 2026 р.» */
@@ -79,7 +79,7 @@ export function formatDateDoc(iso: string): string {
 export function formatDateQuoted(iso: string): string {
   const parts = parseISODate(iso)
   if (!parts) return iso
-  return `«${parts.day}» ${MONTHS_GENITIVE[parts.month - 1]} ${parts.year} року`
+  return `«${parts.day}»\u00A0${MONTHS_GENITIVE[parts.month - 1]}\u00A0${parts.year}\u00A0року`
 }
 
 /** «30.10.2026» */
