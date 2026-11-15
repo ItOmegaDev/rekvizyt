@@ -1,0 +1,28 @@
+{
+  "name": "rekvizyt",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Реквізити, рахунки та акти — внутрішній сервіс ФОП",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm -w @rekvizyt/server run dev",
+    "dev:client": "npm -w @rekvizyt/client run dev",
+    "build": "npm -w @rekvizyt/server run build && npm -w @rekvizyt/client run build",
+    "typecheck": "npm -w @rekvizyt/shared run typecheck && npm -w @rekvizyt/server run typecheck && npm -w @rekvizyt/client run typecheck",
+    "start": "npm -w @rekvizyt/server run start",
+    "test": "npm -w @rekvizyt/server run test",
+    "smoke": "bash scripts/smoke.sh"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}
