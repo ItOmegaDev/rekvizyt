@@ -9,6 +9,7 @@ data is stored on your own server (SQLite).
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![License](https://img.shields.io/badge/license-private-lightgrey)
+![Author](https://img.shields.io/badge/author-itomegadev-17614f)
 
 ## Features
 
@@ -108,19 +109,6 @@ Covers: money in words and formatting, dates, IBAN, certificate preambles, and
 a full API scenario (sign-in, directories, create/edit/duplicate/delete
 document, payment flag, validation, CSRF).
 
-## Deployment
-
-See [DEPLOY.md](./DEPLOY.md). Short version:
-
-```bash
-cp .env.example .env   # fill in production variables
-docker compose up -d --build
-```
-
-Data is stored in the `rekvizyt_data` volume (`/data` in the container).
-Database schema changes are applied automatically on start-up, so existing
-data survives upgrades without manual migrations.
-
 ## Troubleshooting
 
 **Port already allocated on start-up.** Another container on the host already
@@ -148,3 +136,7 @@ gaps.
 ## License
 
 Private project.
+
+## Author
+
+[itomegadev](https://github.com/ItOmegaDev)

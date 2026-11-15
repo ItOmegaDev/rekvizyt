@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "Реквізити, рахунки та акти — внутрішній сервіс ФОП",
+  "author": "itomegadev (https://github.com/ItOmegaDev)",
   "workspaces": [
     "shared",
     "server",

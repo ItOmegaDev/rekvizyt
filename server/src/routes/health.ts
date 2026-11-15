@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from 'express'
-import type { HealthResponse } from '@rekvizyt/shared'
+import { AUTHOR, type HealthResponse } from '@rekvizyt/shared'
 import { dbState } from '../db.js'
 
 export const healthRouter: Router = Router()
@@ -10,5 +10,6 @@ healthRouter.get('/health', (_req: Request, res: Response<HealthResponse>) => {
     status: 'ok',
     uptimeSeconds: Math.floor(process.uptime()),
     db: dbState(),
+    author: AUTHOR.name,
   })
 })

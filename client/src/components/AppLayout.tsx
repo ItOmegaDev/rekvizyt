@@ -1,4 +1,5 @@
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
+import { AUTHOR } from '@rekvizyt/shared'
 import { useAuth } from '../auth'
 
 export function ProtectedRoute() {
@@ -65,6 +66,12 @@ export function AppLayout() {
 
       <footer className="app-footer no-print">
         <span>Внутрішній сервіс · дані зберігаються на вашому сервері</span>
+        <span className="app-author">
+          Автор:{' '}
+          <a href={AUTHOR.url} target="_blank" rel="noreferrer noopener">
+            {AUTHOR.name}
+          </a>
+        </span>
       </footer>
     </div>
   )

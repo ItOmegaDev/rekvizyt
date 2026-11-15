@@ -9,6 +9,7 @@ export interface HealthResponse {
   status: 'ok'
   uptimeSeconds: number
   db: 'connected' | 'disconnected'
+  author: string
 }
 
 export interface Profile {
