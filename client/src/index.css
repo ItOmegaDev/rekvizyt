@@ -1345,7 +1345,7 @@ select.input {
     width: 210mm;
     min-height: 297mm;
     margin: 0;
-    padding: 15mm 17mm 17mm;
+    padding: 16mm 17mm 18mm;
     box-shadow: none;
     page-break-after: always;
     break-after: page;
