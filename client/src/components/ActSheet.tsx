@@ -78,12 +78,14 @@ export function ActSheet({ doc }: { doc: DocumentDetail }) {
           <div className="act-party-title">ВИКОНАВЕЦЬ:</div>
           <div className="act-party-name">{profile.name}</div>
           <div>{profile.address}</div>
-          {profile.taxId && <div>{inferTaxIdLabel(profile.taxId)} {profile.taxId}</div>}
+          {profile.taxId && <div>{inferTaxIdLabel(profile.taxId)}: {profile.taxId}</div>}
           {profile.iban && <div>IBAN {profile.iban}</div>}
-          <div>
-            {profile.bankName}
-            {profile.mfo ? `, МФО ${profile.mfo}` : ''}
-          </div>
+          {profile.bankName && (
+            <div>
+              {profile.bankName}
+              {profile.mfo ? `, МФО ${profile.mfo}` : ''}
+            </div>
+          )}
           {profile.taxNote && <div>{profile.taxNote}</div>}
           {profile.phone && <div>Тел.: {profile.phone}</div>}
         </div>

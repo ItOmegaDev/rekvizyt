@@ -28,15 +28,16 @@ export function InvoiceSheet({ doc }: { doc: DocumentDetail }) {
           <div>{profile.address}</div>
           {profile.taxId && (
             <div>
-              {inferTaxIdLabel(profile.taxId)} {profile.taxId}
-              {profile.iban ? `, ${profile.iban}` : ''}
+              {inferTaxIdLabel(profile.taxId)}: {profile.taxId}
             </div>
           )}
-          {!profile.taxId && profile.iban && <div>IBAN {profile.iban}</div>}
-          <div>
-            {profile.bankName}
-            {profile.mfo ? `, МФО ${profile.mfo}` : ''}
-          </div>
+          {profile.iban && <div>IBAN {profile.iban}</div>}
+          {profile.bankName && (
+            <div>
+              {profile.bankName}
+              {profile.mfo ? `, МФО ${profile.mfo}` : ''}
+            </div>
+          )}
           {profile.phone && <div>Тел.: {profile.phone}</div>}
         </div>
 
@@ -59,10 +60,12 @@ export function InvoiceSheet({ doc }: { doc: DocumentDetail }) {
             <div>ІПН {counterparty.ipn}</div>
           )}
           {counterparty.iban && <div>IBAN {counterparty.iban}</div>}
-          <div>
-            {counterparty.bankName}
-            {counterparty.mfo ? `, МФО ${counterparty.mfo}` : ''}
-          </div>
+          {counterparty.bankName && (
+            <div>
+              {counterparty.bankName}
+              {counterparty.mfo ? `, МФО ${counterparty.mfo}` : ''}
+            </div>
+          )}
           {(counterparty.phone || counterparty.email) && (
             <div>
               {counterparty.phone ? `Тел.: ${counterparty.phone}` : ''}
