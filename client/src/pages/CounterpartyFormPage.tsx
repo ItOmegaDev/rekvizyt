@@ -188,7 +188,7 @@ export function CounterpartyFormPage() {
       ...prev,
       type,
       taxId: '',
-      taxIdLabel: type === 'tov' ? 'Код ЄДРПОУ' : 'РНОКПП',
+      taxIdLabel: type === 'tov' ? 'Код ЄДРПОУ' : 'Код РНОКПП',
       signerPosition: type === 'tov' ? 'Директор' : 'Фізична особа-підприємець',
       signerPositionGenitive: type === 'tov' ? 'директора' : 'фізичної особи-підприємця',
       basis: type === 'tov' ? 'Статуту' : '',

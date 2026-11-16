@@ -118,7 +118,7 @@ export function seedInitialData(): boolean {
       legalAddress: 'Харківська обл., м. Харків, вул. Дружби народів, буд. 269, кв. 107',
       postalAddress: '',
       taxId: '2923315272',
-      taxIdLabel: 'РНОКПП',
+      taxIdLabel: 'Код РНОКПП',
       ipn: '',
       iban: 'UA493518230000026000500369390',
       bankName: 'Філія ХАРКІВСЬКЕ ОУ АТ «ОЩАДБАНК», м. Харків',

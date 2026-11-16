@@ -24,7 +24,7 @@ export const AUTHOR = {
 export function inferTaxIdLabel(taxId: string): string {
   const digits = (taxId || '').replace(/\D/g, '')
   if (digits.length === 8) return 'Код ЄДРПОУ'
-  if (digits.length === 10) return 'РНОКПП'
+  if (digits.length === 10) return 'Код РНОКПП'
   if (digits.length > 0) return 'Податковий номер'
   return ''
 }
