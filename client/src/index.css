@@ -1313,6 +1313,15 @@ select.input {
     background: #fff;
   }
 
+  /* Анімації появи листа не мають впливати на друк: інакше браузер
+     може зняти кадр до завершення анімації (opacity 0 / зсув). */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
   .no-print,
   .app-header,
   .app-footer {
@@ -1519,7 +1528,9 @@ html {
   }
 }
 
-@media (max-width: 860px) {
+/* Тільки екран: у друці ширина сторінки A4 (~794px), тому без `screen`
+   ці правила ламали макет документа (поля, двоколонкові блоки). */
+@media screen and (max-width: 860px) {
   .app-header-inner {
     flex-wrap: wrap;
     gap: 10px 16px;

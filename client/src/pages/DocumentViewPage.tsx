@@ -107,7 +107,12 @@ export function DocumentViewPage() {
           <button type="button" className="btn btn-secondary" onClick={() => void duplicate()} disabled={busy}>
             Повторити
           </button>
-          <button type="button" className="btn btn-primary" onClick={() => window.print()}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => window.print()}
+            title="У діалозі друку: A4, масштаб 100%, поля за замовчуванням"
+          >
             Друк / PDF
           </button>
           <button
@@ -137,7 +142,7 @@ export function DocumentViewPage() {
           </button>
         ))}
         <span className="tabs-hint muted small">
-          Друк: A4 · для PDF виберіть «Зберегти як PDF» у діалозі друку
+          Друк: A4 · масштаб 100% · поля за замовчуванням · для PDF виберіть «Зберегти як PDF»
         </span>
       </div>
 
