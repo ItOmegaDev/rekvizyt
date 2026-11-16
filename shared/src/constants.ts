@@ -20,5 +20,14 @@ export const AUTHOR = {
   url: 'https://github.com/ItOmegaDev',
 } as const
 
+/** Визначає назву податкового номера за його довжиною (з реквізитів). */
+export function inferTaxIdLabel(taxId: string): string {
+  const digits = (taxId || '').replace(/\D/g, '')
+  if (digits.length === 8) return 'ЄДРПОУ'
+  if (digits.length === 10) return 'РНОКПП'
+  if (digits.length > 0) return 'Податковий номер'
+  return ''
+}
+
 /** Одиниці, які найчастіше трапляються; поле вводу лишається вільним. */
 export const UNIT_SUGGESTIONS = ['шт', 'посл.', 'год', 'міс.', 'компл.'] as const

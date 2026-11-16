@@ -4,6 +4,7 @@ import {
   formatDateDoc,
   formatMoney,
   formatQty,
+  inferTaxIdLabel,
   type DocumentDetail,
 } from '@rekvizyt/shared'
 
@@ -25,9 +26,13 @@ export function InvoiceSheet({ doc }: { doc: DocumentDetail }) {
         <div className="party-lines">
           <div className="party-name">{profile.name}</div>
           <div>{profile.address}</div>
-          <div>
-            ЄДРПОУ {profile.taxId}, {profile.iban}
-          </div>
+          {profile.taxId && (
+            <div>
+              {inferTaxIdLabel(profile.taxId)} {profile.taxId}
+              {profile.iban ? `, ${profile.iban}` : ''}
+            </div>
+          )}
+          {!profile.taxId && profile.iban && <div>IBAN {profile.iban}</div>}
           <div>
             {profile.bankName}
             {profile.mfo ? `, МФО ${profile.mfo}` : ''}
@@ -44,11 +49,16 @@ export function InvoiceSheet({ doc }: { doc: DocumentDetail }) {
           {counterparty.postalAddress && (
             <div>Адреса для листування: {counterparty.postalAddress}</div>
           )}
-          <div>
-            {counterparty.taxIdLabel}: {counterparty.taxId}
-            {counterparty.ipn ? `, ІПН ${counterparty.ipn}` : ''}
-          </div>
-          <div>IBAN {counterparty.iban}</div>
+          {counterparty.taxId && (
+            <div>
+              {counterparty.taxIdLabel || inferTaxIdLabel(counterparty.taxId)}: {counterparty.taxId}
+              {counterparty.ipn ? `, ІПН ${counterparty.ipn}` : ''}
+            </div>
+          )}
+          {!counterparty.taxId && counterparty.ipn && (
+            <div>ІПН {counterparty.ipn}</div>
+          )}
+          {counterparty.iban && <div>IBAN {counterparty.iban}</div>}
           <div>
             {counterparty.bankName}
             {counterparty.mfo ? `, МФО ${counterparty.mfo}` : ''}

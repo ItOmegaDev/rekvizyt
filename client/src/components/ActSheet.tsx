@@ -3,6 +3,7 @@ import {
   formatAmount,
   formatDateDoc,
   formatDateQuoted,
+  inferTaxIdLabel,
   type DocumentDetail,
 } from '@rekvizyt/shared'
 
@@ -56,15 +57,19 @@ export function ActSheet({ doc }: { doc: DocumentDetail }) {
           {counterparty.postalAddress && (
             <div>Адреса для листування: {counterparty.postalAddress}</div>
           )}
-          <div>
-            {counterparty.taxIdLabel}: {counterparty.taxId}
-          </div>
+          {counterparty.taxId && (
+            <div>
+              {counterparty.taxIdLabel || inferTaxIdLabel(counterparty.taxId)}: {counterparty.taxId}
+            </div>
+          )}
           {counterparty.ipn && <div>ІПН {counterparty.ipn}</div>}
-          <div>IBAN {counterparty.iban}</div>
-          <div>
-            {counterparty.bankName}
-            {counterparty.mfo ? ` МФО ${counterparty.mfo}` : ''}
-          </div>
+          {counterparty.iban && <div>IBAN {counterparty.iban}</div>}
+          {counterparty.bankName && (
+            <div>
+              {counterparty.bankName}
+              {counterparty.mfo ? ` МФО ${counterparty.mfo}` : ''}
+            </div>
+          )}
           {counterparty.phone && <div>Тел. {counterparty.phone}</div>}
           {counterparty.email && <div>Е-mail: {counterparty.email}</div>}
         </div>
@@ -73,8 +78,8 @@ export function ActSheet({ doc }: { doc: DocumentDetail }) {
           <div className="act-party-title">ВИКОНАВЕЦЬ:</div>
           <div className="act-party-name">{profile.name}</div>
           <div>{profile.address}</div>
-          <div>ЄДРПОУ {profile.taxId}</div>
-          <div>IBAN {profile.iban}</div>
+          {profile.taxId && <div>{inferTaxIdLabel(profile.taxId)} {profile.taxId}</div>}
+          {profile.iban && <div>IBAN {profile.iban}</div>}
           <div>
             {profile.bankName}
             {profile.mfo ? `, МФО ${profile.mfo}` : ''}

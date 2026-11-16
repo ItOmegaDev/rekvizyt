@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { OkResponse, Profile } from '@rekvizyt/shared'
 import { api, errorMessage } from '../api'
+import { inferTaxIdLabel } from '@rekvizyt/shared'
 import { Field } from '../components/Field'
 
 interface ProfileFormState {
@@ -328,10 +329,12 @@ export function ProfilesPage() {
                     {profile.mfo ? `, МФО ${profile.mfo}` : ''}
                   </dd>
                 </div>
-                <div>
-                  <dt>ЄДРПОУ</dt>
-                  <dd>{profile.taxId}</dd>
-                </div>
+                {profile.taxId && (
+                  <div>
+                    <dt>{inferTaxIdLabel(profile.taxId) || 'Податковий номер'}</dt>
+                    <dd>{profile.taxId}</dd>
+                  </div>
+                )}
                 {profile.phone && (
                   <div>
                     <dt>Телефон</dt>
