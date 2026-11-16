@@ -1280,6 +1280,7 @@ select.input {
 
 .act-sign-position {
   margin-bottom: 32pt;
+  font-weight: 700;
 }
 
 .act-sign-row {
@@ -1296,6 +1297,7 @@ select.input {
 
 .act-sign-name {
   white-space: nowrap;
+  font-weight: 700;
 }
 
 /* ───────────────────────────────  Друк  ────────────────────────────── */
