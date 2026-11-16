@@ -1570,8 +1570,8 @@ html {
 
 /* ───────────────────────  Ознака оплати в списку  ──────────────────── */
 
-.row-paid {
-  background: color-mix(in srgb, var(--accent-weak) 45%, transparent);
+.row-debtor {
+  background: color-mix(in srgb, var(--danger-weak) 70%, transparent);
 }
 
 .paid-cell {
@@ -1606,9 +1606,27 @@ html {
   transition: color 0.15s ease;
 }
 
-.paid-label.is-paid {
-  color: var(--accent-strong);
+.paid-label.is-debtor {
+  color: var(--danger);
   font-weight: 600;
+}
+
+.paid-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-weak);
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+.paid-summary strong {
+  color: var(--danger);
 }
 
 .paid-date {

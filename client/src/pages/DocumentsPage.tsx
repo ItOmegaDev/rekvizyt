@@ -16,7 +16,14 @@ export function DocumentsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [busyId, setBusyId] = useState<string | null>(null)
+  const [onlyUnpaid, setOnlyUnpaid] = useState(false)
   const [paidEditId, setPaidEditId] = useState<string | null>(null)
+
+  const displayed = onlyUnpaid ? items.filter((d) => d.paidAt === null) : items
+  const unpaidCount = items.filter((d) => d.paidAt === null).length
+  const unpaidTotal = items
+    .filter((d) => d.paidAt === null)
+    .reduce((sum, d) => sum + d.totalMinor, 0)
 
   const load = useCallback(async (search: string) => {
     setLoading(true)
@@ -126,23 +133,29 @@ export function DocumentsPage() {
 
         {error && <div className="alert alert-error">{error}</div>}
 
+        {!loading && items.length > 0 && (
+          <div className="paid-summary">
+            <span>
+              Боржників: <strong>{unpaidCount}</strong> з {items.length} · не сплачено:{' '}
+              <strong>{formatMoney(unpaidTotal)}</strong> грн
+            </span>
+            <button
+              type="button"
+              className={`btn btn-sm ${onlyUnpaid ? 'btn-primary' : 'btn-ghost'}`}
+              onClick={() => setOnlyUnpaid((v) => !v)}
+            >
+              {onlyUnpaid ? 'Показати всі' : 'Тільки боржники'}
+            </button>
+          </div>
+        )}
+
         {loading ? (
           <p className="muted">Завантаження…</p>
-        ) : items.length === 0 ? (
+        ) : displayed.length === 0 ? (
           <div className="empty-state">
             <p className="empty-title">
-              {query ? 'Нічого не знайдено' : 'Ще немає жодного документа'}
+              {onlyUnpaid ? 'Боржників немає - усі документи сплачені' : query ? 'Нічого не знайдено' : 'Ще немає жодного документа'}
             </p>
-            <p className="muted">
-              {query
-                ? 'Спробуйте інший запит або очистіть пошук.'
-                : 'Створіть перший рахунок і акт - це займе близько хвилини.'}
-            </p>
-            {!query && (
-              <Link className="btn btn-primary" to="/admin/documents/new">
-                Створити документ
-              </Link>
-            )}
           </div>
         ) : (
           <div className="table-wrap">
@@ -159,7 +172,7 @@ export function DocumentsPage() {
                 </tr>
               </thead>
               <tbody>
-                {items.map((doc) => (
+                {displayed.map((doc) => (
                   <tr key={doc.id} className={doc.paidAt ? 'row-paid' : undefined}>
                     <td className="nowrap">{formatDateShort(doc.issuedAt)}</td>
                     <td>
@@ -213,8 +226,8 @@ export function DocumentsPage() {
                                 }
                               }}
                             />
-                            <span className={doc.paidAt ? 'paid-label is-paid' : 'paid-label'}>
-                              {doc.paidAt ? 'Сплачено' : 'Не сплачено'}
+                            <span className={doc.paidAt ? 'paid-label is-paid' : 'paid-label is-debtor'}>
+                              {doc.paidAt ? 'Сплачено' : 'Борг'}
                             </span>
                           </label>
                           {doc.paidAt && (
