@@ -47,7 +47,7 @@ export function seedInitialData(): boolean {
       iban: 'UA213220010000026004330079326',
       bankName: 'АТ «УНІВЕРСАЛ БАНК»',
       mfo: '322001',
-      taxNote: 'Платник єдиного податку, 3-я група',
+      taxNote: 'Платник єдиного податку, 3-я група, по ставці 5%',
       signerPosition: 'Фізична особа-підприємець',
       isDefault: false,
       isActive: true,

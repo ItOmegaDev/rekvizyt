@@ -30,8 +30,10 @@ export function suggestedNumber(seq: number, month: string): string {
   return `${seq}-${month}`
 }
 
-const FOP_BASIS =
-  'що діє на підставі ст. 42 Конституції України, Глави 5 Цивільного кодексу України'
+// Акт фіксує факт виконання робіт/надання послуг, тому посилання на Конституцію
+// та кодекси тут зайві. Ідентифікація ФОП - за записом в ЄДР (Закон «Про
+// бухгалтерський облік»: чітка ідентифікація сторін).
+const FOP_REGISTRATION_BASIS = 'що діє на підставі запису в Єдиному державному реєстрі юридичних осіб та фізичних осіб - підприємців'
 
 /**
  * Вступна фраза замовника в акті.
@@ -48,12 +50,17 @@ export function buildCustomerPreamble(c: {
 }): string {
   if (c.type === 'fop') {
     const record = c.registrationRecord
-      ? `, запис в Єдиному державному реєстрі юридичних осіб та фізичних осіб - підприємців ${c.registrationRecord}`
+      ? ` ${c.registrationRecord}`
       : ''
+    const registration =
+      c.registrationRecord
+        ? `${FOP_REGISTRATION_BASIS}${record}`
+        : ''
+    const sep = registration ? ', ' : ''
     return (
-      `${c.fullName}, ${FOP_BASIS}${record}, ` +
+      `${c.fullName}${sep}${registration}, ` +
       'іменоване надалі «Замовник» з однієї сторони, та'
-    )
+    ).replace(', ,', ',')
   }
 
   const pronoun = c.signerGender === 'f' ? 'яка' : 'який'
@@ -68,14 +75,17 @@ export function buildCustomerPreamble(c: {
 export function buildExecutorPreamble(p: {
   fullName: string
   registrationRecord: string
+  taxNote?: string
 }): string {
-  const record = p.registrationRecord
-    ? `, запис в Єдиному державному реєстрі юридичних осіб та фізичних осіб - підприємців ${p.registrationRecord}`
+  const taxClause = p.taxNote ? `${p.taxNote}, ` : ''
+  const registration = p.registrationRecord
+    ? `${FOP_REGISTRATION_BASIS} ${p.registrationRecord}`
     : ''
+  const sep = registration ? ', ' : ''
   return (
-    `${p.fullName}, ${FOP_BASIS}${record}, іменований надалі «Виконавець», з іншої сторони, ` +
+    `${p.fullName}, ${taxClause}${registration}${sep}іменований надалі «Виконавець», з іншої сторони, ` +
     'разом іменовані «Сторони», склали цей Акт про наступне:'
-  )
+  ).replace(', ,', ',').replace(',  ', ', ')
 }
 
 export function toProfileSnapshot(profile: Profile): ProfileSnapshot {

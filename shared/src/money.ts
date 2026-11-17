@@ -144,7 +144,7 @@ function groupThousands(value: number): string {
 /** «6 900,00» - завжди два знаки після коми. */
 export function formatMoney(minor: number): string {
   const safe = Number.isFinite(minor) ? Math.round(minor) : 0
-  const sign = safe < 0 ? '−' : ''
+  const sign = safe < 0 ? '-' : ''
   const abs = Math.abs(safe)
   const hryvnia = Math.floor(abs / 100)
   const kopecks = abs % 100

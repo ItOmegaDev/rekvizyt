@@ -109,7 +109,11 @@ documentsRouter.post(
       vatNote: input.vatNote,
       note: input.note,
       customerPreamble: refs.counterparty.preamble || buildCustomerPreamble(refs.counterparty),
-      executorPreamble: buildExecutorPreamble(refs.profile),
+      executorPreamble: buildExecutorPreamble({
+        fullName: refs.profile.fullName,
+        registrationRecord: refs.profile.registrationRecord,
+        taxNote: refs.profile.taxNote,
+      }),
     }
 
     res.status(201).json(createDocument(write, auto.seq))
@@ -136,7 +140,11 @@ documentsRouter.put(
       vatNote: input.vatNote,
       note: input.note,
       customerPreamble: refs.counterparty.preamble || buildCustomerPreamble(refs.counterparty),
-      executorPreamble: buildExecutorPreamble(refs.profile),
+      executorPreamble: buildExecutorPreamble({
+        fullName: refs.profile.fullName,
+        registrationRecord: refs.profile.registrationRecord,
+        taxNote: refs.profile.taxNote,
+      }),
     }
 
     const updated = updateDocument(id, write)
