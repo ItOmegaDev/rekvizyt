@@ -55,7 +55,7 @@ test('formatMoney: розряди через нерозривний пробіл
   assert.equal(formatMoney(690_000), '6\u00A0900,00')
   assert.equal(formatMoney(123_456_789), '1\u00A0234\u00A0567,89')
   assert.equal(formatMoney(0), '0,00')
-  assert.equal(formatAmount(690_000), '6\u00A0900')
+  assert.equal(formatAmount(690_000), '6\u00A0900,00')
   assert.equal(formatAmount(690_050), '6\u00A0900,50')
 })
 

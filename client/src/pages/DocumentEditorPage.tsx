@@ -29,7 +29,7 @@ function newItem(label = '', qty = '1', unit = 'посл.', price = ''): ItemSta
 function toPriceInput(minor: number): string {
   const hryvnia = Math.trunc(minor / 100)
   const kopecks = minor % 100
-  return kopecks === 0 ? String(hryvnia) : `${hryvnia},${String(kopecks).padStart(2, '0')}`
+  return `${hryvnia},${String(kopecks).padStart(2, '0')}`
 }
 
 function qtyValue(raw: string): number {

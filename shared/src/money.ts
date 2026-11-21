@@ -153,9 +153,7 @@ export function formatMoney(minor: number): string {
 
 /** «6 900» або «699,50» - без зайвих нулів у копійках. */
 export function formatAmount(minor: number): string {
-  if (minor % 100 === 0) {
-    return formatMoney(minor).replace(',00', '')
-  }
+  // Усі ціни в документах пишуться з копійками (наприклад «6 900,00»).
   return formatMoney(minor)
 }
 
